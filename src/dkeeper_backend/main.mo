@@ -5,7 +5,7 @@ import Debug "mo:base/Debug";
 
 actor dkeeper {
 
-type Note = {
+public type Note = {
 title: Text;
 content: Text;
 
@@ -30,13 +30,13 @@ public func createNote(titleText: Text, contentText: Text) {
 
 };
 
-public query func readNotes(): async [Notes]{
+public query func readNotes(): async [Note] {
 
 
-return notes[Notes];
+return List.toArray(notes);
 
 
-}
+};
 
 
 }
