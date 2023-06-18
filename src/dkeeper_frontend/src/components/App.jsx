@@ -11,31 +11,44 @@ function App() {
   function addNote(newNote) {
     setNotes(prevNotes => {
       dkeeper_backend.createNote(newNote.title, newNote.content);
-      return [...prevNotes, newNote];
+      return [newNote, ...prevNotes];
     });
   }
 
   useEffect(() => {
 
 console.log("use effect active");
-fetchData()
+fetchData();
   }, []);
 
 
   async function fetchData(){
 
-    const notesArray = await dkeeper_backend.readNotes;
+    const notesArray = await dkeeper_backend.readNotes();
     setNotes(notesArray);
 
   }
 
   function deleteNote(id) {
+
+
+    deleteBackend(id);
+    
+
     setNotes(prevNotes => {
       return prevNotes.filter((noteItem, index) => {
         return index !== id;
       });
     });
+
+
   }
+
+  async function deleteBackend(id){
+    await dkeeper_backend.removeNote(id);
+  console.log("delete activated");
+  }
+
 
   return (
     <div>
